@@ -4,10 +4,11 @@ import { fetchData } from "./api/theMealDB";
 function App() {
     const [page, setPage] = useState<number>(1);
     const [searchValue, setSearchValue] = useState<string>("");
-    const [recipes, setRecipes] = useState<any>({
-        recipe1Name: "",
-        recipe2Name: "",
-        recipe3Name: "",
+    const [recipes, setRecipes] = useState<any>({});
+    const [displayedRecipes, setDisplayedRecipes] = useState<any>({
+        recipe0: {},
+        recipe1: {},
+        recipe2: {},
     });
 
     const handleNextPage = () => {
@@ -29,32 +30,46 @@ function App() {
     }
 
     useEffect(() => {
-        const indices: any = deriveRecipeIndex(page, 3);
+        const request: any = fetchData(searchValue);
+        request
+        .then((data: any) => {
+            setRecipes(() => ({...data["meals"]}));
+        })
+        .catch((error: any) => {
+            console.log(error);
+        })
+    }, []);
+
+    useEffect(() => {
         const request: any = fetchData(searchValue);
         request
         .then((data: any) => {
             if(!data["meals"]) {
                 throw new Error("no results found");
             }
-            if(!(data["meals"][`${indices[0]}`] && data["meals"][`${indices[1]}`] && data["meals"][`${indices[2]}`])) {
-                throw new Error("not enough results: placeholder");
-            }
-            setRecipes(() => ({
-                recipe1Name: data["meals"][`${indices[0]}`]["strMeal"],
-                recipe2Name: data["meals"][`${indices[1]}`]["strMeal"],
-                recipe3Name: data["meals"][`${indices[2]}`]["strMeal"],
-            }));
+            setRecipes(() => ({...data["meals"]}));
         })
         .catch((error: any) => {
             console.log(error);
         })
-    }, [page, searchValue]);
+    }, [searchValue]);
+
+    useEffect(() => {
+        const indices: any = deriveRecipeIndex(page, 3);
+        setDisplayedRecipes(() => ({
+            recipe0: recipes[`${indices[0]}`],
+            recipe1: recipes[`${indices[1]}`],
+            recipe2: recipes[`${indices[2]}`],
+        }));
+    }, [page]);
 
     //DEBUGGING LOG
-    useEffect(() => {
-        console.log(searchValue);
-        console.log(recipes);
-    })
+    //useEffect(() => {
+    //    console.log("from debugging");
+    //    const indices: any = deriveRecipeIndex(page, 3);
+    //    console.log(recipes[`${indices[0]}`]);
+    //    console.log(displayedRecipes);
+    //})
 
     return (
         <>
@@ -75,12 +90,9 @@ function App() {
                 />
             </header>
             <main>
-                <header>
-                    <h2>recommended chicken meals</h2>
-                </header>
-                <div>{recipes["recipe1Name"]} </div>
-                <div>{recipes["recipe2Name"]}</div>
-                <div>{recipes["recipe3Name"]}</div>
+                {displayedRecipes["recipe0"] && <div>{displayedRecipes["recipe0"]["strMeal"]}</div>}
+                {displayedRecipes["recipe1"] && <div>{displayedRecipes["recipe1"]["strMeal"]}</div>}
+                {displayedRecipes["recipe2"] && <div>{displayedRecipes["recipe2"]["strMeal"]}</div>}
                 <button 
                 onClick={handlePrevPage}
                 className="border border-solid border-blue-500"

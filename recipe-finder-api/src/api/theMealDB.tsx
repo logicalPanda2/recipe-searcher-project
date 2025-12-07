@@ -1,6 +1,6 @@
-export async function fetchData() {
+export async function fetchData(query: string) {
     try {
-        const response = await fetch("https://www.themealdb.com/api/json/v1/1/search.php?s=chicken");
+        const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`);
         if(!response.ok) {
             console.log(`Error ${response.status}`);
         }

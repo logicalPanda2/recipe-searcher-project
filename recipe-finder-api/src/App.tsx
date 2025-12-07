@@ -6,8 +6,16 @@ export default function App() {
     const [searchValue, setSearchValue] = useState<string>("");
     const [recipes, setRecipes] = useState<any>([]);
 
+    const recipesPerPage = 3;
+    const start = (page - 1) * recipesPerPage;
+    const end = start + recipesPerPage;
+    const visibleRecipes = recipes.slice(start, end);
+
     const handleNextPage = () => {
-        page < 5 ? setPage(p => p + 1) : page;
+        const nextVisibleRecipes = recipes.slice(start + recipesPerPage, end + recipesPerPage);
+        if(nextVisibleRecipes.length !== 0) {
+            setPage(p => p + 1);
+        }
     }
 
     const handlePrevPage = () => {
@@ -40,15 +48,10 @@ export default function App() {
         })
     }, [searchValue]);
 
-    const recipesPerPage = 3;
-    const start = (page - 1) * recipesPerPage;
-    const end = start + recipesPerPage;
-    const visibleRecipes = recipes.slice(start, end);
-
     //DEBUGGING LOG
-    useEffect(() => {
-        console.log(visibleRecipes);
-    })
+    //useEffect(() => {
+    //    console.log(visibleRecipes);
+    //})
 
     return (
         <>

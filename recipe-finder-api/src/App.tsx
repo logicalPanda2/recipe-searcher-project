@@ -15,13 +15,26 @@ function App() {
         page > 1 ? setPage(p => p - 1) : page;
     }
 
+    const deriveRecipeIndex = (page: number, n: number) => {
+        const arr: any = [];
+        const max: number = page * n;
+        const min: number = page * n - n;
+        for(let i = min; i < max; i++) {
+            arr.push(i);
+        }
+        return arr;
+    }
+
     useEffect(() => {
+        const indices: any = deriveRecipeIndex(page, 3);
+        console.log(indices);
         const request: any = fetchData();
         request
-        .then((data: any) => {    
-            recipe1.current.textContent = data["meals"]["0"]["strMeal"];
-            recipe2.current.textContent = data["meals"]["1"]["strMeal"];
-            recipe3.current.textContent = data["meals"]["2"]["strMeal"];
+        .then((data: any) => {
+            console.log(data);
+            recipe1.current.textContent = data["meals"][`${indices[0]}`]["strMeal"];
+            recipe2.current.textContent = data["meals"][`${indices[1]}`]["strMeal"];
+            recipe3.current.textContent = data["meals"][`${indices[2]}`]["strMeal"];
         })
         .catch((error: any) => {
             console.log(error);

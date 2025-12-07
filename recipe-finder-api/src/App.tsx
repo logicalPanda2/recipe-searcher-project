@@ -3,6 +3,7 @@ import { fetchData } from "./api/theMealDB";
 
 function App() {
     const [page, setPage] = useState<number>(1);
+    const [searchValue, setSearchValue] = useState<string>("");
     const [recipes, setRecipes] = useState<any>({
         recipe1Name: "",
         recipe2Name: "",
@@ -29,22 +30,25 @@ function App() {
 
     useEffect(() => {
         const indices: any = deriveRecipeIndex(page, 3);
-        //console.log(indices);
-        const request: any = fetchData();
+        const request: any = fetchData(searchValue);
         request
         .then((data: any) => {
-            //console.log(data);
             setRecipes(() => ({
                 recipe1Name: data["meals"][`${indices[0]}`]["strMeal"],
                 recipe2Name: data["meals"][`${indices[1]}`]["strMeal"],
                 recipe3Name: data["meals"][`${indices[2]}`]["strMeal"],
             }));
-            console.log(recipes);
         })
         .catch((error: any) => {
             console.log(error);
         })
-    }, [page])
+    }, [page, searchValue]);
+
+    //DEBUGGING LOG
+    useEffect(() => {
+        console.log(searchValue);
+        console.log(recipes);
+    })
 
     return (
         <>
@@ -60,6 +64,8 @@ function App() {
                 name="query" 
                 id="searchField" 
                 className="border border-solid border-black"
+                value={searchValue}
+                onChange={(e) => {setSearchValue(e.target.value)}}
                 />
             </header>
             <main>
@@ -75,6 +81,7 @@ function App() {
                 >
                     Previous
                 </button>
+                <p>{page}</p>
                 <button 
                 onClick={handleNextPage}
                 className="border border-solid border-blue-500"

@@ -2,99 +2,114 @@ import { useEffect, useState } from "react";
 import { fetchData } from "./api/theMealDB";
 
 export default function App() {
-    const [page, setPage] = useState<number>(1);
-    const [searchValue, setSearchValue] = useState<string>("");
-    const [recipes, setRecipes] = useState<any>([]);
+	const [page, setPage] = useState<number>(1);
+	const [searchValue, setSearchValue] = useState<string>("");
+	const [recipes, setRecipes] = useState<string[]>([]);
 
-    const recipesPerPage = 3;
-    const start = (page - 1) * recipesPerPage;
-    const end = start + recipesPerPage;
-    const visibleRecipes = recipes.slice(start, end);
+	const recipesPerPage = 3;
+	const start = (page - 1) * recipesPerPage;
+	const end = start + recipesPerPage;
+	const visibleRecipes: string[] = recipes.slice(start, end);
 
-    const handleNextPage = () => {
-        const nextVisibleRecipes = recipes.slice(start + recipesPerPage, end + recipesPerPage);
-        if(nextVisibleRecipes.length !== 0) {
-            setPage(p => p + 1);
-        }
-    }
+	const handleNextPage = () => {
+		const nextVisibleRecipes: string[] = recipes.slice(
+			start + recipesPerPage,
+			end + recipesPerPage,
+		);
+		if (nextVisibleRecipes.length !== 0) {
+			setPage((p) => p + 1);
+		}
+	};
 
-    const handlePrevPage = () => {
-        page > 1 ? setPage(p => p - 1) : page;
-    }
+	const handlePrevPage = () => {
+		if (page > 1) {
+			setPage((p) => p - 1);
+		}
+	};
 
-    useEffect(() => {
-        const request: any = fetchData(searchValue);
-        request
-        .then((data: any) => {
-            setRecipes(() => (data.meals));
-        })
-        .catch((error: any) => {
-            console.log(error);
-        })
-    }, []);
+	useEffect(() => {
+		const request = fetchData("");
+		request
+			.then((data) => {
+				if (data && typeof data === "object" && "meals" in data) {
+					if (Array.isArray(data.meals)) {
+						setRecipes(data.meals);
+					}
+				}
+			})
+			.catch((e: unknown) => {
+				console.error(e);
+			});
+	}, []);
 
-    useEffect(() => {
-        const request: any = fetchData(searchValue);
-        request
-        .then((data: any) => {
-            if(!data.meals) {
-                setRecipes(() => ([]))
-                throw new Error("no results found");
-            }
-            setPage(1);
-            setRecipes(() => (data.meals));
-        })
-        .catch((error: any) => {
-            console.log(error);
-        })
-    }, [searchValue]);
+	useEffect(() => {
+		const request = fetchData(searchValue);
+		request
+			.then((data) => {
+				if (data && typeof data === "object" && "meals" in data) {
+					if (Array.isArray(data.meals)) {
+						setPage(1);
+						setRecipes(data.meals);
+					}
+				} else if (
+					data &&
+					typeof data === "object" &&
+					!("meals" in data)
+				) {
+					setRecipes([]);
+					throw new Error("no results found");
+				}
+			})
+			.catch((error: unknown) => {
+				console.error(error);
+			});
+	}, [searchValue]);
 
-    //DEBUGGING LOG
-    //useEffect(() => {
-    //    console.log(visibleRecipes);
-    //})
-
-    return (
-        <>
-            <header>
-                <h1>Recipe Searcher</h1>
-                <label 
-                htmlFor="searchField"
-                >
-                    Search
-                </label>
-                <input 
-                type="search" 
-                name="query" 
-                id="searchField" 
-                className="border border-solid border-black"
-                value={searchValue}
-                onChange={(e) => {setSearchValue(e.target.value)}}
-                />
-            </header>
-            <main>
-                {   visibleRecipes.length !== 0
-                    ? visibleRecipes.map((r: any) => <div key={r.idMeal}>{r.strMeal}</div>)
-                    : <p>No results found</p>
-                }
-                <button 
-                onClick={handlePrevPage}
-                className="border border-solid border-blue-500"
-                >
-                    Previous
-                </button>
-                <p>{page}</p>
-                <button 
-                onClick={handleNextPage}
-                className="border border-solid border-blue-500"
-                >
-                    Next
-                </button>
-            </main>
-            <footer>
-                API provided by (link to themealdb)
-                design by (link to github logicalPanda2)
-            </footer>
-        </>
-    );
+	return (
+		<>
+			<header>
+				<h1>Recipe Searcher</h1>
+				<label htmlFor="searchField">Search</label>
+				<input
+					type="search"
+					name="query"
+					id="searchField"
+					className="border border-solid border-black"
+					value={searchValue}
+					onChange={(e) => {
+						setSearchValue(e.target.value);
+					}}
+				/>
+			</header>
+			<main>
+				{
+					// TODO replace any, 4 lint errors here
+					visibleRecipes.length !== 0 ? (
+						visibleRecipes.map((r: any) => (
+							<div key={r.idMeal}>{r.strMeal}</div>
+						))
+					) : (
+						<p>No results found</p>
+					)
+				}
+				<button
+					onClick={handlePrevPage}
+					className="border border-solid border-blue-500"
+				>
+					Previous
+				</button>
+				<p>{page}</p>
+				<button
+					onClick={handleNextPage}
+					className="border border-solid border-blue-500"
+				>
+					Next
+				</button>
+			</main>
+			<footer>
+				API provided by (link to themealdb) design by (link to github
+				logicalPanda2)
+			</footer>
+		</>
+	);
 }

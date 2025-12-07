@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { fetchData } from "./api/theMealDB";
 
-function App() {
+export default function App() {
     const [page, setPage] = useState<number>(1);
     const [searchValue, setSearchValue] = useState<string>("");
     const [recipes, setRecipes] = useState<any>({});
     const [displayedRecipes, setDisplayedRecipes] = useState<any>({
-        recipe0: {},
-        recipe1: {},
-        recipe2: {},
+        0: {},
+        1: {},
+        2: {},
     });
 
     const handleNextPage = () => {
@@ -33,7 +33,7 @@ function App() {
         const request: any = fetchData(searchValue);
         request
         .then((data: any) => {
-            setRecipes(() => ({...data["meals"]}));
+            setRecipes(() => (data["meals"]));
         })
         .catch((error: any) => {
             console.log(error);
@@ -47,7 +47,8 @@ function App() {
             if(!data["meals"]) {
                 throw new Error("no results found");
             }
-            setRecipes(() => ({...data["meals"]}));
+            setPage(1);
+            setRecipes(() => (data["meals"]));
         })
         .catch((error: any) => {
             console.log(error);
@@ -57,11 +58,11 @@ function App() {
     useEffect(() => {
         const indices: any = deriveRecipeIndex(page, 3);
         setDisplayedRecipes(() => ({
-            recipe0: recipes[`${indices[0]}`],
-            recipe1: recipes[`${indices[1]}`],
-            recipe2: recipes[`${indices[2]}`],
+            0: recipes[indices[0]],
+            1: recipes[indices[1]],
+            2: recipes[indices[2]],
         }));
-    }, [page]);
+    }, [page, recipes]);
 
     //DEBUGGING LOG
     //useEffect(() => {
@@ -90,9 +91,9 @@ function App() {
                 />
             </header>
             <main>
-                {displayedRecipes["recipe0"] && <div>{displayedRecipes["recipe0"]["strMeal"]}</div>}
-                {displayedRecipes["recipe1"] && <div>{displayedRecipes["recipe1"]["strMeal"]}</div>}
-                {displayedRecipes["recipe2"] && <div>{displayedRecipes["recipe2"]["strMeal"]}</div>}
+                {displayedRecipes["0"] && <div>{displayedRecipes["0"]["strMeal"]}</div>}
+                {displayedRecipes["1"] && <div>{displayedRecipes["1"]["strMeal"]}</div>}
+                {displayedRecipes["2"] && <div>{displayedRecipes["2"]["strMeal"]}</div>}
                 <button 
                 onClick={handlePrevPage}
                 className="border border-solid border-blue-500"
@@ -114,5 +115,3 @@ function App() {
         </>
     );
 }
-
-export default App;

@@ -5,6 +5,8 @@ export default function App() {
 	const [page, setPage] = useState<number>(1);
 	const [searchValue, setSearchValue] = useState<string>("");
 	const [recipes, setRecipes] = useState<string[]>([]);
+    const [isRecipeActive, setIsRecipeActive] = useState<boolean>(false);
+    const [activeRecipe, setActiveRecipe] = useState<unknown>({});
 
 	const recipesPerPage = 3;
 	const start = (page - 1) * recipesPerPage;
@@ -20,6 +22,17 @@ export default function App() {
 			setPage((p) => p + 1);
 		}
 	};
+
+    const openDialogBox = (r: unknown) => {
+        setIsRecipeActive(true);
+        setActiveRecipe(r);
+    }
+
+    const closeDialogBox = () => {
+        setIsRecipeActive(false);
+        console.log(activeRecipe);
+        setActiveRecipe({});
+    }
 
 	const handlePrevPage = () => {
 		if (page > 1) {
@@ -86,7 +99,7 @@ export default function App() {
 					// TODO replace any, 4 lint errors here
 					visibleRecipes.length !== 0 ? (
 						visibleRecipes.map((r: any) => (
-							<div key={r.idMeal}>{r.strMeal}</div>
+							<div key={r.idMeal} onClick={() => {openDialogBox(r)}}>{r.strMeal}</div>
 						))
 					) : (
 						<p>No results found</p>
@@ -105,6 +118,7 @@ export default function App() {
 				>
 					Next
 				</button>
+                {isRecipeActive && <div onClick={closeDialogBox}>this will be the dialog box that displays recipe</div>}
 			</main>
 			<footer>
 				API provided by (link to themealdb) design by (link to github

@@ -38,6 +38,7 @@ export default function App() {
         request
         .then((data: any) => {
             if(!data.meals) {
+                setRecipes(() => ([]))
                 throw new Error("no results found");
             }
             setPage(1);
@@ -72,7 +73,10 @@ export default function App() {
                 />
             </header>
             <main>
-                {visibleRecipes.map((r: any) => <div key={r.idMeal}>{r.strMeal}</div>)}
+                {   visibleRecipes.length !== 0
+                    ? visibleRecipes.map((r: any) => <div key={r.idMeal}>{r.strMeal}</div>)
+                    : <p>No results found</p>
+                }
                 <button 
                 onClick={handlePrevPage}
                 className="border border-solid border-blue-500"

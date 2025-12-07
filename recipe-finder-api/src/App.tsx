@@ -33,6 +33,12 @@ function App() {
         const request: any = fetchData(searchValue);
         request
         .then((data: any) => {
+            if(!data["meals"]) {
+                throw new Error("no results found");
+            }
+            if(!(data["meals"][`${indices[0]}`] && data["meals"][`${indices[1]}`] && data["meals"][`${indices[2]}`])) {
+                throw new Error("not enough results: placeholder");
+            }
             setRecipes(() => ({
                 recipe1Name: data["meals"][`${indices[0]}`]["strMeal"],
                 recipe2Name: data["meals"][`${indices[1]}`]["strMeal"],

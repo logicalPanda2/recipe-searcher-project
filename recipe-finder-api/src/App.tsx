@@ -1,11 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchData } from "./api/theMealDB";
 
 function App() {
     const [page, setPage] = useState<number>(1);
-    const recipe1 = useRef<any>("");
-    const recipe2 = useRef<any>("");
-    const recipe3 = useRef<any>("");
+    const [recipes, setRecipes] = useState<any>({
+        recipe1Name: "",
+        recipe2Name: "",
+        recipe3Name: "",
+    });
 
     const handleNextPage = () => {
         page < 5 ? setPage(p => p + 1) : page;
@@ -27,14 +29,17 @@ function App() {
 
     useEffect(() => {
         const indices: any = deriveRecipeIndex(page, 3);
-        console.log(indices);
+        //console.log(indices);
         const request: any = fetchData();
         request
         .then((data: any) => {
-            console.log(data);
-            recipe1.current.textContent = data["meals"][`${indices[0]}`]["strMeal"];
-            recipe2.current.textContent = data["meals"][`${indices[1]}`]["strMeal"];
-            recipe3.current.textContent = data["meals"][`${indices[2]}`]["strMeal"];
+            //console.log(data);
+            setRecipes(() => ({
+                recipe1Name: data["meals"][`${indices[0]}`]["strMeal"],
+                recipe2Name: data["meals"][`${indices[1]}`]["strMeal"],
+                recipe3Name: data["meals"][`${indices[2]}`]["strMeal"],
+            }));
+            console.log(recipes);
         })
         .catch((error: any) => {
             console.log(error);
@@ -61,21 +66,9 @@ function App() {
                 <header>
                     <h2>recommended chicken meals</h2>
                 </header>
-                <div
-                ref={recipe1}
-                >
-
-                </div>
-                <div
-                ref={recipe2}
-                >
-
-                </div>
-                <div
-                ref={recipe3}
-                >
-
-                </div>
+                <div>{recipes["recipe1Name"]} </div>
+                <div>{recipes["recipe2Name"]}</div>
+                <div>{recipes["recipe3Name"]}</div>
                 <button 
                 onClick={handlePrevPage}
                 className="border border-solid border-blue-500"

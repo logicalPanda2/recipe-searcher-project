@@ -99,7 +99,10 @@ export default function App() {
 					// TODO replace any, 4 lint errors here
 					visibleRecipes.length !== 0 ? (
 						visibleRecipes.map((r: any) => (
-							<div key={r.idMeal} onClick={() => {openDialogBox(r)}}>{r.strMeal}</div>
+							<div key={r.idMeal} onClick={() => {openDialogBox(r)}}>
+                                <p>{r.strMeal}</p>
+                                <img src={r.strMealThumb} alt="" width={100} height={100}/>
+                            </div>
 						))
 					) : (
 						<p>No results found</p>

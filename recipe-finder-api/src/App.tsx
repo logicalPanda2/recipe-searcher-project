@@ -4,12 +4,7 @@ import { fetchData } from "./api/theMealDB";
 export default function App() {
     const [page, setPage] = useState<number>(1);
     const [searchValue, setSearchValue] = useState<string>("");
-    const [recipes, setRecipes] = useState<any>({});
-    const [displayedRecipes, setDisplayedRecipes] = useState<any>({
-        0: {},
-        1: {},
-        2: {},
-    });
+    const [recipes, setRecipes] = useState<any>([]);
 
     const handleNextPage = () => {
         page < 5 ? setPage(p => p + 1) : page;
@@ -19,21 +14,11 @@ export default function App() {
         page > 1 ? setPage(p => p - 1) : page;
     }
 
-    const deriveRecipeIndex = (page: number, n: number) => {
-        const arr: any = [];
-        const max: number = page * n;
-        const min: number = page * n - n;
-        for(let i = min; i < max; i++) {
-            arr.push(i);
-        }
-        return arr;
-    }
-
     useEffect(() => {
         const request: any = fetchData(searchValue);
         request
         .then((data: any) => {
-            setRecipes(() => (data["meals"]));
+            setRecipes(() => (data.meals));
         })
         .catch((error: any) => {
             console.log(error);
@@ -44,33 +29,26 @@ export default function App() {
         const request: any = fetchData(searchValue);
         request
         .then((data: any) => {
-            if(!data["meals"]) {
+            if(!data.meals) {
                 throw new Error("no results found");
             }
             setPage(1);
-            setRecipes(() => (data["meals"]));
+            setRecipes(() => (data.meals));
         })
         .catch((error: any) => {
             console.log(error);
         })
     }, [searchValue]);
 
-    useEffect(() => {
-        const indices: any = deriveRecipeIndex(page, 3);
-        setDisplayedRecipes(() => ({
-            0: recipes[indices[0]],
-            1: recipes[indices[1]],
-            2: recipes[indices[2]],
-        }));
-    }, [page, recipes]);
+    const recipesPerPage = 3;
+    const start = (page - 1) * recipesPerPage;
+    const end = start + recipesPerPage;
+    const visibleRecipes = recipes.slice(start, end);
 
     //DEBUGGING LOG
-    //useEffect(() => {
-    //    console.log("from debugging");
-    //    const indices: any = deriveRecipeIndex(page, 3);
-    //    console.log(recipes[`${indices[0]}`]);
-    //    console.log(displayedRecipes);
-    //})
+    useEffect(() => {
+        console.log(visibleRecipes);
+    })
 
     return (
         <>
@@ -91,9 +69,7 @@ export default function App() {
                 />
             </header>
             <main>
-                {displayedRecipes["0"] && <div>{displayedRecipes["0"]["strMeal"]}</div>}
-                {displayedRecipes["1"] && <div>{displayedRecipes["1"]["strMeal"]}</div>}
-                {displayedRecipes["2"] && <div>{displayedRecipes["2"]["strMeal"]}</div>}
+                {visibleRecipes.map((r: any) => <div key={r.idMeal}>{r.strMeal}</div>)}
                 <button 
                 onClick={handlePrevPage}
                 className="border border-solid border-blue-500"

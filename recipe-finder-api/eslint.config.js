@@ -16,16 +16,16 @@ export default defineConfig([
 			tseslint.configs.recommended,
 			reactHooks.configs.flat.recommended,
 			reactRefresh.configs.vite,
-            tseslint.configs.recommendedTypeChecked,
+			tseslint.configs.recommendedTypeChecked,
 			tseslint.configs.strictTypeChecked,
 			tseslint.configs.stylisticTypeChecked,
-            reactX.configs["recommended-typescript"],
+			reactX.configs["recommended-typescript"],
 			reactDom.configs.recommended,
 		],
 		languageOptions: {
 			ecmaVersion: 2020,
 			globals: globals.browser,
-            parserOptions: {
+			parserOptions: {
 				project: ["./tsconfig.node.json", "./tsconfig.app.json"],
 				tsconfigRootDir: import.meta.dirname,
 			},

@@ -4,17 +4,73 @@ import { fetchData } from "./api/theMealDB";
 export default function App() {
 	const [page, setPage] = useState<number>(1);
 	const [searchValue, setSearchValue] = useState<string>("");
-	const [recipes, setRecipes] = useState<string[]>([]);
+	const [recipes, setRecipes] = useState<Recipe[]>([]);
     const [isRecipeActive, setIsRecipeActive] = useState<boolean>(false);
     const [activeRecipe, setActiveRecipe] = useState<unknown>({});
+
+    interface Recipe {
+        idMeal: string,
+        strMeal: string,
+        strMealAlternate: unknown,
+        strCategory: string,
+        strArea: string,
+        strInstructions: string,
+        strMealThumb: string,
+        strTags: string,
+        strYoutube: string,
+        strIngredient1: string,
+        strIngredient2: string,
+        strIngredient3: string,
+        strIngredient4: string,
+        strIngredient5: string,
+        strIngredient6: string,
+        strIngredient7: string,
+        strIngredient8: string,
+        strIngredient9: string,
+        strIngredient10: string,
+        strIngredient11: string,
+        strIngredient12: string,
+        strIngredient13: string,
+        strIngredient14: string,
+        strIngredient15: string,
+        strIngredient16: string,
+        strIngredient17: string,
+        strIngredient18: string,
+        strIngredient19: string,
+        strIngredient20: string,
+        strMeasure1: string,
+        strMeasure2: string,
+        strMeasure3: string,
+        strMeasure4: string,
+        strMeasure5: string,
+        strMeasure6: string,
+        strMeasure7: string,
+        strMeasure8: string,
+        strMeasure9: string,
+        strMeasure10: string,
+        strMeasure11: string,
+        strMeasure12: string,
+        strMeasure13: string,
+        strMeasure14: string,
+        strMeasure15: string,
+        strMeasure16: string,
+        strMeasure17: string,
+        strMeasure18: string,
+        strMeasure19: string,
+        strMeasure20: string,
+        strSource: string,
+        strImageSource: unknown,
+        strCreativeCommonsConfirmed: unknown,
+        dateModified: unknown
+    }
 
 	const recipesPerPage = 3;
 	const start = (page - 1) * recipesPerPage;
 	const end = start + recipesPerPage;
-	const visibleRecipes: string[] = recipes.slice(start, end);
+	const visibleRecipes: Recipe[] = recipes.slice(start, end);
 
 	const handleNextPage = () => {
-		const nextVisibleRecipes: string[] = recipes.slice(
+		const nextVisibleRecipes: Recipe[] = recipes.slice(
 			start + recipesPerPage,
 			end + recipesPerPage,
 		);
@@ -96,9 +152,8 @@ export default function App() {
 			</header>
 			<main>
 				{
-					// TODO replace any, 4 lint errors here
 					visibleRecipes.length !== 0 ? (
-						visibleRecipes.map((r: any) => (
+						visibleRecipes.map((r: Recipe) => (
 							<div key={r.idMeal} onClick={() => {openDialogBox(r)}}>
                                 <p>{r.strMeal}</p>
                                 <img src={r.strMealThumb} alt="" width={100} height={100}/>

@@ -11,12 +11,8 @@ export default function App() {
 	interface Recipe {
 		idMeal: string;
 		strMeal: string;
-		strMealAlternate: unknown;
-		strCategory: string;
-		strArea: string;
 		strInstructions: string;
 		strMealThumb: string;
-		strTags: string;
 		strYoutube: string;
 		strIngredient1: string;
 		strIngredient2: string;
@@ -58,13 +54,10 @@ export default function App() {
 		strMeasure18: string;
 		strMeasure19: string;
 		strMeasure20: string;
-		strSource: string;
-		strImageSource: unknown;
-		strCreativeCommonsConfirmed: unknown;
-		dateModified: unknown;
 	}
 
 	function isRecipe(value: unknown): value is Recipe {
+		console.log(value);
 		if (
 			typeof value === "object" &&
 			value !== null &&
@@ -72,16 +65,10 @@ export default function App() {
 			typeof (value as any).idMeal === "string" &&
 			"strMeal" in value &&
 			typeof (value as any).strMeal === "string" &&
-			"strCategory" in value &&
-			typeof (value as any).strCategory === "string" &&
-			"strArea" in value &&
-			typeof (value as any).strArea === "string" &&
 			"strInstructions" in value &&
 			typeof (value as any).strInstructions === "string" &&
 			"strMealThumb" in value &&
 			typeof (value as any).strMealThumb === "string" &&
-			"strTags" in value &&
-			typeof (value as any).strTags === "string" &&
 			"strYoutube" in value &&
 			typeof (value as any).strYoutube === "string" &&
 			"strIngredient1" in value &&
@@ -163,9 +150,7 @@ export default function App() {
 			"strMeasure19" in value &&
 			typeof (value as any).strMeasure19 === "string" &&
 			"strMeasure20" in value &&
-			typeof (value as any).strMeasure20 === "string" &&
-			"strSource" in value &&
-			typeof (value as any).strSource === "string"
+			typeof (value as any).strMeasure20 === "string"
 		) {
 			return true;
 		}
@@ -194,7 +179,10 @@ export default function App() {
 
 	const closeDialogBox = () => {
 		setIsRecipeActive(false);
-		console.log(activeRecipe);
+		console.log("hello");
+		if (isRecipe(activeRecipe)) {
+			console.log(activeRecipe.strMeal);
+		}
 		setActiveRecipe({});
 	};
 

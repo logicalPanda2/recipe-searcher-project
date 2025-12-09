@@ -1,4 +1,4 @@
-// this is a script to automate the process of translating json objects to ts interfaces.
+// below is a script to automate the process of translating json objects to ts interfaces.
 
 function parse(json) {
     const parsed = {};
@@ -10,4 +10,17 @@ function parse(json) {
         }
     }
     return parsed;
+}
+
+// below is a script that help automate the process of creating custom type guards.
+
+function makeGuard(schema) {
+    let requirements = `if(typeof value === "object" && value !== null &&`;
+    for(key in schema) {
+        let keyStr = String(key);
+        requirements = `${requirements} "${keyStr}" in value &&`;
+        let valueStr = String(schema[key]);
+        requirements = `${requirements} typeof value.${keyStr} === "${valueStr}" &&`;
+    }
+    return requirements;
 }

@@ -69,103 +69,103 @@ export default function App() {
 			typeof value === "object" &&
 			value !== null &&
 			"idMeal" in value &&
-			typeof value.idMeal === "string" &&
+			typeof (value as any).idMeal === "string" &&
 			"strMeal" in value &&
-			typeof value.strMeal === "string" &&
+			typeof (value as any).strMeal === "string" &&
 			"strCategory" in value &&
-			typeof value.strCategory === "string" &&
+			typeof (value as any).strCategory === "string" &&
 			"strArea" in value &&
-			typeof value.strArea === "string" &&
+			typeof (value as any).strArea === "string" &&
 			"strInstructions" in value &&
-			typeof value.strInstructions === "string" &&
+			typeof (value as any).strInstructions === "string" &&
 			"strMealThumb" in value &&
-			typeof value.strMealThumb === "string" &&
+			typeof (value as any).strMealThumb === "string" &&
 			"strTags" in value &&
-			typeof value.strTags === "string" &&
+			typeof (value as any).strTags === "string" &&
 			"strYoutube" in value &&
-			typeof value.strYoutube === "string" &&
+			typeof (value as any).strYoutube === "string" &&
 			"strIngredient1" in value &&
-			typeof value.strIngredient1 === "string" &&
+			typeof (value as any).strIngredient1 === "string" &&
 			"strIngredient2" in value &&
-			typeof value.strIngredient2 === "string" &&
+			typeof (value as any).strIngredient2 === "string" &&
 			"strIngredient3" in value &&
-			typeof value.strIngredient3 === "string" &&
+			typeof (value as any).strIngredient3 === "string" &&
 			"strIngredient4" in value &&
-			typeof value.strIngredient4 === "string" &&
+			typeof (value as any).strIngredient4 === "string" &&
 			"strIngredient5" in value &&
-			typeof value.strIngredient5 === "string" &&
+			typeof (value as any).strIngredient5 === "string" &&
 			"strIngredient6" in value &&
-			typeof value.strIngredient6 === "string" &&
+			typeof (value as any).strIngredient6 === "string" &&
 			"strIngredient7" in value &&
-			typeof value.strIngredient7 === "string" &&
+			typeof (value as any).strIngredient7 === "string" &&
 			"strIngredient8" in value &&
-			typeof value.strIngredient8 === "string" &&
+			typeof (value as any).strIngredient8 === "string" &&
 			"strIngredient9" in value &&
-			typeof value.strIngredient9 === "string" &&
+			typeof (value as any).strIngredient9 === "string" &&
 			"strIngredient10" in value &&
-			typeof value.strIngredient10 === "string" &&
+			typeof (value as any).strIngredient10 === "string" &&
 			"strIngredient11" in value &&
-			typeof value.strIngredient11 === "string" &&
+			typeof (value as any).strIngredient11 === "string" &&
 			"strIngredient12" in value &&
-			typeof value.strIngredient12 === "string" &&
+			typeof (value as any).strIngredient12 === "string" &&
 			"strIngredient13" in value &&
-			typeof value.strIngredient13 === "string" &&
+			typeof (value as any).strIngredient13 === "string" &&
 			"strIngredient14" in value &&
-			typeof value.strIngredient14 === "string" &&
+			typeof (value as any).strIngredient14 === "string" &&
 			"strIngredient15" in value &&
-			typeof value.strIngredient15 === "string" &&
+			typeof (value as any).strIngredient15 === "string" &&
 			"strIngredient16" in value &&
-			typeof value.strIngredient16 === "string" &&
+			typeof (value as any).strIngredient16 === "string" &&
 			"strIngredient17" in value &&
-			typeof value.strIngredient17 === "string" &&
+			typeof (value as any).strIngredient17 === "string" &&
 			"strIngredient18" in value &&
-			typeof value.strIngredient18 === "string" &&
+			typeof (value as any).strIngredient18 === "string" &&
 			"strIngredient19" in value &&
-			typeof value.strIngredient19 === "string" &&
+			typeof (value as any).strIngredient19 === "string" &&
 			"strIngredient20" in value &&
-			typeof value.strIngredient20 === "string" &&
+			typeof (value as any).strIngredient20 === "string" &&
 			"strMeasure1" in value &&
-			typeof value.strMeasure1 === "string" &&
+			typeof (value as any).strMeasure1 === "string" &&
 			"strMeasure2" in value &&
-			typeof value.strMeasure2 === "string" &&
+			typeof (value as any).strMeasure2 === "string" &&
 			"strMeasure3" in value &&
-			typeof value.strMeasure3 === "string" &&
+			typeof (value as any).strMeasure3 === "string" &&
 			"strMeasure4" in value &&
-			typeof value.strMeasure4 === "string" &&
+			typeof (value as any).strMeasure4 === "string" &&
 			"strMeasure5" in value &&
-			typeof value.strMeasure5 === "string" &&
+			typeof (value as any).strMeasure5 === "string" &&
 			"strMeasure6" in value &&
-			typeof value.strMeasure6 === "string" &&
+			typeof (value as any).strMeasure6 === "string" &&
 			"strMeasure7" in value &&
-			typeof value.strMeasure7 === "string" &&
+			typeof (value as any).strMeasure7 === "string" &&
 			"strMeasure8" in value &&
-			typeof value.strMeasure8 === "string" &&
+			typeof (value as any).strMeasure8 === "string" &&
 			"strMeasure9" in value &&
-			typeof value.strMeasure9 === "string" &&
+			typeof (value as any).strMeasure9 === "string" &&
 			"strMeasure10" in value &&
-			typeof value.strMeasure10 === "string" &&
+			typeof (value as any).strMeasure10 === "string" &&
 			"strMeasure11" in value &&
-			typeof value.strMeasure11 === "string" &&
+			typeof (value as any).strMeasure11 === "string" &&
 			"strMeasure12" in value &&
-			typeof value.strMeasure12 === "string" &&
+			typeof (value as any).strMeasure12 === "string" &&
 			"strMeasure13" in value &&
-			typeof value.strMeasure13 === "string" &&
+			typeof (value as any).strMeasure13 === "string" &&
 			"strMeasure14" in value &&
-			typeof value.strMeasure14 === "string" &&
+			typeof (value as any).strMeasure14 === "string" &&
 			"strMeasure15" in value &&
-			typeof value.strMeasure15 === "string" &&
+			typeof (value as any).strMeasure15 === "string" &&
 			"strMeasure16" in value &&
-			typeof value.strMeasure16 === "string" &&
+			typeof (value as any).strMeasure16 === "string" &&
 			"strMeasure17" in value &&
-			typeof value.strMeasure17 === "string" &&
+			typeof (value as any).strMeasure17 === "string" &&
 			"strMeasure18" in value &&
-			typeof value.strMeasure18 === "string" &&
+			typeof (value as any).strMeasure18 === "string" &&
 			"strMeasure19" in value &&
-			typeof value.strMeasure19 === "string" &&
+			typeof (value as any).strMeasure19 === "string" &&
 			"strMeasure20" in value &&
-			typeof value.strMeasure20 === "string" &&
+			typeof (value as any).strMeasure20 === "string" &&
 			"strSource" in value &&
-			typeof value.strSource === "string"
+			typeof (value as any).strSource === "string"
 		) {
 			return true;
 		}

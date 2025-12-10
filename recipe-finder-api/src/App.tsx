@@ -1,81 +1,14 @@
 import { useEffect, useState } from "react";
 import { fetchData } from "./api/theMealDB";
 import type { Recipe } from "./interface/Recipe";
-import { isRecipe } from "./interface/Recipe";
 import Header from "./components/Header";
-import Pagination from "./components/Pagination";
-import RecipeDetails from "./components/RecipeDetails";
-import RecipeThumbnail from "./components/RecipeThumbnail";
+import Main from "./components/Main";
 import Footer from "./components/Footer";
 
 export default function App() {
-	const [page, setPage] = useState<number>(1);
 	const [searchValue, setSearchValue] = useState<string>("");
-	const [recipes, setRecipes] = useState<Recipe[]>([]);
-	const [activeRecipe, setActiveRecipe] = useState<unknown>({});
-
-	const recipesPerPage = 3;
-	const start = (page - 1) * recipesPerPage;
-	const end = start + recipesPerPage;
-	const visibleRecipes: Recipe[] = recipes.slice(start, end);
-
-	const handleNextPage = () => {
-		const nextVisibleRecipes = recipes.slice(
-			start + recipesPerPage,
-			end + recipesPerPage,
-		);
-		if (nextVisibleRecipes.length !== 0) {
-			setPage((p) => p + 1);
-		}
-	};
-
-	const openDialogBox = (recipe: unknown) => {
-		setActiveRecipe(recipe);
-	};
-
-	const closeDialogBox = () => {
-		setActiveRecipe({});
-	};
-
-	const handlePrevPage = () => {
-		if (page > 1) {
-			setPage((p) => p - 1);
-		}
-	};
-
-	const displayIngredients = (recipe: Recipe) => {
-		const ingredientsUnfiltered = [
-			`${recipe.strIngredient1}: ${recipe.strMeasure1}`,
-			`${recipe.strIngredient2}: ${recipe.strMeasure2}`,
-			`${recipe.strIngredient3}: ${recipe.strMeasure3}`,
-			`${recipe.strIngredient4}: ${recipe.strMeasure4}`,
-			`${recipe.strIngredient5}: ${recipe.strMeasure5}`,
-			`${recipe.strIngredient6}: ${recipe.strMeasure6}`,
-			`${recipe.strIngredient7}: ${recipe.strMeasure7}`,
-			`${recipe.strIngredient8}: ${recipe.strMeasure8}`,
-			`${recipe.strIngredient9}: ${recipe.strMeasure9}`,
-			`${recipe.strIngredient10}: ${recipe.strMeasure10}`,
-			`${recipe.strIngredient12}: ${recipe.strMeasure12}`,
-			`${recipe.strIngredient13}: ${recipe.strMeasure13}`,
-			`${recipe.strIngredient14}: ${recipe.strMeasure14}`,
-			`${recipe.strIngredient15}: ${recipe.strMeasure15}`,
-			`${recipe.strIngredient16}: ${recipe.strMeasure16}`,
-			`${recipe.strIngredient17}: ${recipe.strMeasure17}`,
-			`${recipe.strIngredient18}: ${recipe.strMeasure18}`,
-			`${recipe.strIngredient19}: ${recipe.strMeasure19}`,
-			`${recipe.strIngredient20}: ${recipe.strMeasure20}`,
-		];
-		const ingredients = ingredientsUnfiltered.filter((i: string) => {
-			return i.trim() !== ":";
-		});
-		return (
-			<ul>
-				{ingredients.map((ingredient, i) => (
-					<li key={i}>{ingredient}</li>
-				))}
-			</ul>
-		);
-	};
+    const [recipes, setRecipes] = useState<Recipe[]>([]);    
+    const [page, setPage] = useState<number>(1);
 
 	useEffect(() => {
 		const request = fetchData("");
@@ -114,31 +47,7 @@ export default function App() {
 	return (
 		<>
 			<Header value={searchValue} onChange={setSearchValue} />
-			<main>
-				{visibleRecipes.length !== 0 ? (
-					visibleRecipes.map((r: Recipe) => (
-						<RecipeThumbnail
-							recipe={r}
-							key={r.idMeal}
-							onOpen={openDialogBox}
-						/>
-					))
-				) : (
-					<p>No results found</p>
-				)}
-				<Pagination
-					page={page}
-					onPrevious={handlePrevPage}
-					onNext={handleNextPage}
-				/>
-				{isRecipe(activeRecipe) && (
-					<RecipeDetails
-						recipe={activeRecipe}
-						displayIngredients={displayIngredients}
-						onClose={closeDialogBox}
-					/>
-				)}
-			</main>
+			<Main recipes={recipes} page={page} onPageChange={setPage}/>
 			<Footer />
 		</>
 	);

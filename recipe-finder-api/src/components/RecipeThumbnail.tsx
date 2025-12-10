@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import type { Recipe } from "../interface/Recipe";
 
 interface Props {
@@ -7,10 +6,6 @@ interface Props {
 }
 
 export default function RecipeThumbnail({ recipe, onOpen }: Props) {
-	useEffect(() => {
-		console.log(recipe.idMeal);
-	});
-
 	return (
 		<div
 			onClick={() => {

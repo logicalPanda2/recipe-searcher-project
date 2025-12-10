@@ -4,6 +4,8 @@ import Header from "./components/Header";
 import type { Recipe } from "./interface/Recipe";
 import { isRecipe } from "./interface/Recipe";
 import Pagination from "./components/Pagination";
+import RecipeDetails from "./components/RecipeDetails";
+import RecipeThumbnail from "./components/RecipeThumbnail";
 
 export default function App() {
 	const [page, setPage] = useState<number>(1);
@@ -112,43 +114,13 @@ export default function App() {
 			<main>
 				{visibleRecipes.length !== 0 ? (
 					visibleRecipes.map((r: Recipe) => (
-						<div
-							key={r.idMeal}
-							onClick={() => {
-								openDialogBox(r);
-							}}
-						>
-							<p>{r.strMeal}</p>
-							<img
-								src={r.strMealThumb}
-								alt=""
-								width={100}
-								height={100}
-							/>
-						</div>
+						<RecipeThumbnail recipe={r} onOpen={openDialogBox}/>
 					))
 				) : (
 					<p>No results found</p>
 				)}
 				<Pagination page={page} onPrevious={handlePrevPage} onNext={handleNextPage}/>
-				{isRecipe(activeRecipe) && (
-					<div>
-                        <p>{activeRecipe.strMeal}</p>
-                        <img
-                            src={activeRecipe.strMealThumb}
-                            alt=""
-                            width={100}
-                            height={100}
-                        />
-                        <p>Ingredients</p>
-                        <ul>
-                            { displayIngredients(activeRecipe) }
-                        </ul>
-                        <p>Instructions</p>
-                        <p>{activeRecipe.strInstructions}</p>
-                        <button onClick={closeDialogBox}>Close</button>
-					</div>
-				)}
+				{isRecipe(activeRecipe) && <RecipeDetails recipe={activeRecipe} displayIngredients={displayIngredients} onClose={closeDialogBox}/>}
 			</main>
 			<footer>
 				API provided by (link to themealdb) design by (link to github

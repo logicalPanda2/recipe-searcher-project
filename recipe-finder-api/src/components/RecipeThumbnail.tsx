@@ -11,9 +11,20 @@ export default function RecipeThumbnail({ recipe, onOpen }: Props) {
 			onClick={() => {
 				onOpen(recipe);
 			}}
+            className="flex flex-col items-center border border-solid border-black rounded-lg p-4 w-1/6 min-w-20 gap-4"
 		>
-			<p>{recipe.strMeal}</p>
-			<img src={recipe.strMealThumb} alt="" width={100} height={100} />
+			<p
+                className="text-xl"
+            >
+                {recipe.strMeal}
+            </p>
+			<img 
+                src={recipe.strMealThumb} 
+                alt="" 
+                width={100} 
+                height={100}
+                className="w-[90%] h-[90%] rounded-lg" 
+            />
 		</div>
 	);
 }

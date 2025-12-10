@@ -17,7 +17,7 @@ export default function Header({ value, onChange }: Props) {
                 className="flex flex-col items-center justify-center px-4 w-1/3 min-w-3xs"
             >
                 <label htmlFor="searchField"
-                    className="mb-1 text-xl font-semibold"
+                    className="mb-1 text-xl"
                 >
                     Search
                 </label>
@@ -25,7 +25,7 @@ export default function Header({ value, onChange }: Props) {
                     type="search"
                     name="query"
                     id="searchField"
-                    className="border-[1.5px] border-solid border-black rounded-lg px-2 py-1 w-[90%]"
+                    className="border border-solid border-black rounded-lg px-2 py-1 w-[90%]"
                     value={value}
                     onChange={(e) => {
                         onChange(e.target.value);

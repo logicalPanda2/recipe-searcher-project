@@ -115,7 +115,7 @@ export default function App() {
 			<main>
 				{visibleRecipes.length !== 0 ? (
 					visibleRecipes.map((r: Recipe) => (
-						<RecipeThumbnail recipe={r} onOpen={openDialogBox}/>
+						<RecipeThumbnail recipe={r} key={r.idMeal} onOpen={openDialogBox}/>
 					))
 				) : (
 					<p>No results found</p>

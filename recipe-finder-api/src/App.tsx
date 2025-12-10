@@ -6,6 +6,7 @@ import { isRecipe } from "./interface/Recipe";
 import Pagination from "./components/Pagination";
 import RecipeDetails from "./components/RecipeDetails";
 import RecipeThumbnail from "./components/RecipeThumbnail";
+import Footer from "./components/Footer";
 
 export default function App() {
 	const [page, setPage] = useState<number>(1);
@@ -122,10 +123,7 @@ export default function App() {
 				<Pagination page={page} onPrevious={handlePrevPage} onNext={handleNextPage}/>
 				{isRecipe(activeRecipe) && <RecipeDetails recipe={activeRecipe} displayIngredients={displayIngredients} onClose={closeDialogBox}/>}
 			</main>
-			<footer>
-				API provided by (link to themealdb) design by (link to github
-				logicalPanda2)
-			</footer>
+			<Footer />
 		</>
 	);
 }

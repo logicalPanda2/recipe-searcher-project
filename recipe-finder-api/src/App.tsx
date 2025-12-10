@@ -305,7 +305,7 @@ export default function App() {
 					Next
 				</button>
 				{isRecipe(activeRecipe) && (
-					<div onClick={closeDialogBox}>
+					<div>
                         <p>{activeRecipe.strMeal}</p>
                         <img
                             src={activeRecipe.strMealThumb}
@@ -319,6 +319,7 @@ export default function App() {
                         </ul>
                         <p>Instructions</p>
                         <p>{activeRecipe.strInstructions}</p>
+                        <button onClick={closeDialogBox}>Close</button>
 					</div>
 				)}
 			</main>

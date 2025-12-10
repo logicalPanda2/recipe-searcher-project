@@ -79,7 +79,7 @@ export default function Main({ recipes, page, onPageChange }: Props) {
 	return (
 		<main>
             <div
-                className="flex flex-row justify-evenly my-4"
+                className="flex sm:flex-row flex-col items-center justify-evenly my-4 gap-4"
             >
                 {visibleRecipes.length !== 0 ? (
                     visibleRecipes.map((r: Recipe) => (

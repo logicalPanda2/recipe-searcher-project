@@ -1,8 +1,11 @@
 export default function Footer() {
 	return (
-		<footer>
-			API provided by (link to themealdb) design by (link to github
-			logicalPanda2)
+		<footer 
+            className="pt-4 pl-4"
+        >
+			API provided by <a href="https://www.themealdb.com/api.php" className="underline">TheMealDB</a> 
+            <br />
+            Design by <a href="https://github.com/logicalPanda2" className="underline">logicalPanda2</a> 
 		</footer>
 	);
 }

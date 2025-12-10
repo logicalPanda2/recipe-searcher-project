@@ -78,17 +78,21 @@ export default function Main({ recipes, page, onPageChange }: Props) {
 	};
 	return (
 		<main>
-			{visibleRecipes.length !== 0 ? (
-				visibleRecipes.map((r: Recipe) => (
-					<RecipeThumbnail
-						recipe={r}
-						key={r.idMeal}
-						onOpen={openDialogBox}
-					/>
-				))
-			) : (
-				<p>No results found</p>
-			)}
+            <div
+                className="flex flex-row justify-evenly my-4"
+            >
+                {visibleRecipes.length !== 0 ? (
+                    visibleRecipes.map((r: Recipe) => (
+                        <RecipeThumbnail
+                            recipe={r}
+                            key={r.idMeal}
+                            onOpen={openDialogBox}
+                        />
+                    ))
+                ) : (
+                    <p>No results found</p>
+                )}
+            </div>
 			<Pagination
 				page={page}
 				onPrevious={handlePrevPage}

@@ -5,7 +5,6 @@ export default function App() {
 	const [page, setPage] = useState<number>(1);
 	const [searchValue, setSearchValue] = useState<string>("");
 	const [recipes, setRecipes] = useState<Recipe[]>([]);
-	const [isRecipeActive, setIsRecipeActive] = useState<boolean>(false);
 	const [activeRecipe, setActiveRecipe] = useState<unknown>({});
 
 	interface Recipe {
@@ -57,7 +56,6 @@ export default function App() {
 	}
 
 	function isRecipe(value: unknown): value is Recipe {
-		console.log(value);
 		if (
 			typeof value === "object" &&
 			value !== null &&
@@ -172,17 +170,11 @@ export default function App() {
 		}
 	};
 
-	const openDialogBox = (r: unknown) => {
-		setIsRecipeActive(true);
-		setActiveRecipe(r);
+	const openDialogBox = (recipe: unknown) => {
+		setActiveRecipe(recipe);
 	};
 
 	const closeDialogBox = () => {
-		setIsRecipeActive(false);
-		console.log("hello");
-		if (isRecipe(activeRecipe)) {
-			console.log(activeRecipe.strMeal);
-		}
 		setActiveRecipe({});
 	};
 
@@ -191,6 +183,38 @@ export default function App() {
 			setPage((p) => p - 1);
 		}
 	};
+
+    const displayIngredients = (recipe: Recipe) => {
+        const ingredientsUnfiltered = [
+            `${recipe.strIngredient1}: ${recipe.strMeasure1}`,
+            `${recipe.strIngredient2}: ${recipe.strMeasure2}`,
+            `${recipe.strIngredient3}: ${recipe.strMeasure3}`,
+            `${recipe.strIngredient4}: ${recipe.strMeasure4}`,
+            `${recipe.strIngredient5}: ${recipe.strMeasure5}`,
+            `${recipe.strIngredient6}: ${recipe.strMeasure6}`,
+            `${recipe.strIngredient7}: ${recipe.strMeasure7}`,
+            `${recipe.strIngredient8}: ${recipe.strMeasure8}`,
+            `${recipe.strIngredient9}: ${recipe.strMeasure9}`,
+            `${recipe.strIngredient10}: ${recipe.strMeasure10}`,
+            `${recipe.strIngredient12}: ${recipe.strMeasure12}`,
+            `${recipe.strIngredient13}: ${recipe.strMeasure13}`,
+            `${recipe.strIngredient14}: ${recipe.strMeasure14}`,
+            `${recipe.strIngredient15}: ${recipe.strMeasure15}`,
+            `${recipe.strIngredient16}: ${recipe.strMeasure16}`,
+            `${recipe.strIngredient17}: ${recipe.strMeasure17}`,
+            `${recipe.strIngredient18}: ${recipe.strMeasure18}`,
+            `${recipe.strIngredient19}: ${recipe.strMeasure19}`,
+            `${recipe.strIngredient20}: ${recipe.strMeasure20}`,
+        ];
+        const ingredients = ingredientsUnfiltered.filter((i: string) => { return i.trim() !== ":" });
+        return (
+            <ul>
+                {ingredients.map((ingredient, i) => (
+                    <li key={i}>{ingredient}</li>
+                ))}
+            </ul>
+        );
+    }
 
 	useEffect(() => {
 		const request = fetchData("");
@@ -280,9 +304,21 @@ export default function App() {
 				>
 					Next
 				</button>
-				{isRecipeActive && (
+				{isRecipe(activeRecipe) && (
 					<div onClick={closeDialogBox}>
-						this will be the dialog box that displays recipe
+                        <p>{activeRecipe.strMeal}</p>
+                        <img
+                            src={activeRecipe.strMealThumb}
+                            alt=""
+                            width={100}
+                            height={100}
+                        />
+                        <p>Ingredients</p>
+                        <ul>
+                            { displayIngredients(activeRecipe) }
+                        </ul>
+                        <p>Instructions</p>
+                        <p>{activeRecipe.strInstructions}</p>
 					</div>
 				)}
 			</main>

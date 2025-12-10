@@ -1,7 +1,7 @@
 export default function Footer() {
 	return (
 		<footer 
-            className="pt-4 pl-4"
+            className="pt-8 pb-2 pl-4"
         >
 			API provided by <a href="https://www.themealdb.com/api.php" className="underline">TheMealDB</a> 
             <br />

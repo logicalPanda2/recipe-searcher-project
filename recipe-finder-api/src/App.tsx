@@ -7,8 +7,8 @@ import Footer from "./components/Footer";
 
 export default function App() {
 	const [searchValue, setSearchValue] = useState<string>("");
-    const [recipes, setRecipes] = useState<Recipe[]>([]);    
-    const [page, setPage] = useState<number>(1);
+	const [recipes, setRecipes] = useState<Recipe[]>([]);
+	const [page, setPage] = useState<number>(1);
 
 	useEffect(() => {
 		const request = fetchData("");
@@ -47,7 +47,7 @@ export default function App() {
 	return (
 		<>
 			<Header value={searchValue} onChange={setSearchValue} />
-			<Main recipes={recipes} page={page} onPageChange={setPage}/>
+			<Main recipes={recipes} page={page} onPageChange={setPage} />
 			<Footer />
 		</>
 	);

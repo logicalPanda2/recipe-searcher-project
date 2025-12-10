@@ -3,6 +3,7 @@ import { fetchData } from "./api/theMealDB";
 import Header from "./components/Header";
 import type { Recipe } from "./interface/Recipe";
 import { isRecipe } from "./interface/Recipe";
+import Pagination from "./components/Pagination";
 
 export default function App() {
 	const [page, setPage] = useState<number>(1);
@@ -16,7 +17,7 @@ export default function App() {
 	const visibleRecipes: Recipe[] = recipes.slice(start, end);
 
 	const handleNextPage = () => {
-		const nextVisibleRecipes: Recipe[] = recipes.slice(
+		const nextVisibleRecipes = recipes.slice(
 			start + recipesPerPage,
 			end + recipesPerPage,
 		);
@@ -129,19 +130,7 @@ export default function App() {
 				) : (
 					<p>No results found</p>
 				)}
-				<button
-					onClick={handlePrevPage}
-					className="border border-solid border-blue-500"
-				>
-					Previous
-				</button>
-				<p>{page}</p>
-				<button
-					onClick={handleNextPage}
-					className="border border-solid border-blue-500"
-				>
-					Next
-				</button>
+				<Pagination page={page} onPrevious={handlePrevPage} onNext={handleNextPage}/>
 				{isRecipe(activeRecipe) && (
 					<div>
                         <p>{activeRecipe.strMeal}</p>

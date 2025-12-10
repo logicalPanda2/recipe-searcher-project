@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchData } from "./api/theMealDB";
+import Header from "./components/Header";
 
 export default function App() {
 	const [page, setPage] = useState<number>(1);
@@ -219,57 +220,40 @@ export default function App() {
 	useEffect(() => {
 		const request = fetchData("");
 		request
-			.then((data) => {
-				if (data && typeof data === "object" && "meals" in data) {
-					if (Array.isArray(data.meals)) {
-						setRecipes(data.meals);
-					}
-				}
-			})
-			.catch((e: unknown) => {
-				console.error(e);
-			});
+        .then((data) => {
+            if (data && typeof data === "object" && "meals" in data) {
+                if (Array.isArray(data.meals)) {
+                    setRecipes(data.meals);
+                }
+            }
+        })
+        .catch((e: unknown) => {
+            console.error(e);
+        });
 	}, []);
 
 	useEffect(() => {
 		const request = fetchData(searchValue);
 		request
-			.then((data) => {
-				if (data && typeof data === "object" && "meals" in data) {
-					if (Array.isArray(data.meals)) {
-						setPage(1);
-						setRecipes(data.meals);
-					}
-				} else if (
-					data &&
-					typeof data === "object" &&
-					!("meals" in data)
-				) {
-					setRecipes([]);
-					throw new Error("no results found");
-				}
-			})
-			.catch((error: unknown) => {
-				console.error(error);
-			});
+        .then((data) => {
+            if (data && typeof data === "object" && "meals" in data) {
+                if (Array.isArray(data.meals)) {
+                    setPage(1);
+                    setRecipes(data.meals);
+                } else {
+                    setRecipes([]);
+                    throw new Error("no results found");
+                }
+            }
+        })
+        .catch((error: unknown) => {
+            console.error(error);
+        });
 	}, [searchValue]);
 
 	return (
 		<>
-			<header>
-				<h1>Recipe Searcher</h1>
-				<label htmlFor="searchField">Search</label>
-				<input
-					type="search"
-					name="query"
-					id="searchField"
-					className="border border-solid border-black"
-					value={searchValue}
-					onChange={(e) => {
-						setSearchValue(e.target.value);
-					}}
-				/>
-			</header>
+			<Header value={searchValue} onChange={setSearchValue}/>
 			<main>
 				{visibleRecipes.length !== 0 ? (
 					visibleRecipes.map((r: Recipe) => (

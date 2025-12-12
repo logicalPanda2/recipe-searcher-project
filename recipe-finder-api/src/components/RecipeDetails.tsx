@@ -36,7 +36,7 @@ export default function RecipeDetails({
                 className="flex flex-col w-3/4 md:w-1/5 min-w-56 my-4 md:px-4"
             >
                 <p className="text-2xl font-semibold">Ingredients</p>
-                <ul>{displayIngredients(recipe)}</ul>
+                {displayIngredients(recipe)}
             </div>
             <div
                 className="flex flex-col w-3/4 md:w-3/5 my-4 md:px-4"

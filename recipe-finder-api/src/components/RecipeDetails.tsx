@@ -14,7 +14,7 @@ export default function RecipeDetails({
 }: Props) {
 	return (
 		<div
-            className="absolute h-screen w-screen top-0 bg-white flex flex-col md:flex-row p-4 overflow-x-hidden"
+            className="h-screen w-screen fixed inset-0 top-0 bg-white flex flex-col md:flex-row p-4 overflow-x-hidden"
         >
             <div
                 className="flex flex-col w-1/5 pr-4 mb-4 min-w-54"
@@ -33,20 +33,20 @@ export default function RecipeDetails({
                 />
             </div>
             <div
-                className="flex flex-col w-3/4 md:w-1/5 min-w-56 mb-4 md:px-4"
+                className="flex flex-col w-3/4 md:w-1/5 min-w-56 my-4 md:px-4"
             >
                 <p className="text-2xl font-semibold">Ingredients</p>
                 <ul>{displayIngredients(recipe)}</ul>
             </div>
             <div
-                className="flex flex-col w-3/4 md:w-3/5 md:px-4"
+                className="flex flex-col w-3/4 md:w-3/5 my-4 md:px-4"
             >
                 <p className="text-2xl font-semibold">Instructions</p>
                 <p>{recipe.strInstructions}</p>
             </div>
             <button 
                 onClick={onClose}
-                className="border border-solid border-black px-4 py-2 h-12 rounded-lg self-end font-semibold"
+                className="absolute top-4 right-4 border border-solid border-black px-4 py-2 rounded-lg font-semibold"
             >
                 Close
             </button>

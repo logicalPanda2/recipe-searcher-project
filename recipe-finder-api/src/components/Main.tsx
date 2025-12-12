@@ -31,7 +31,6 @@ export default function Main({ recipes, page, onPageChange }: Props) {
 
 	const openDialogBox = (recipe: unknown) => {
 		setActiveRecipe(recipe);
-        window.scrollTo({top: 0});
 	};
 
 	const closeDialogBox = () => {

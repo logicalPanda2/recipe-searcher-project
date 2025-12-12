@@ -14,7 +14,7 @@ export default function RecipeDetails({
 }: Props) {
 	return (
 		<div
-            className="bg-gray-100 h-screen w-screen fixed inset-0 top-0 flex flex-col md:flex-row p-4 overflow-x-hidden"
+            className="bg-gray-100 h-screen w-screen fixed inset-0 top-0 flex flex-col md:flex-row p-8 py-12 overflow-x-hidden"
         >
             <div
                 className="flex flex-col w-1/5 pr-4 mb-4 min-w-54"
@@ -33,13 +33,13 @@ export default function RecipeDetails({
                 />
             </div>
             <div
-                className="flex flex-col w-3/4 md:w-1/5 min-w-56 my-4 md:px-4"
+                className="flex flex-col w-3/4 md:w-1/5 min-w-56 md:px-4"
             >
                 <p className="text-2xl font-semibold">Ingredients</p>
                 {displayIngredients(recipe)}
             </div>
             <div
-                className="flex flex-col w-3/4 md:w-3/5 my-4 md:px-4"
+                className="flex flex-col w-3/4 md:w-3/5 md:px-4"
             >
                 <p className="text-2xl font-semibold">Instructions</p>
                 <p>{recipe.strInstructions}</p>

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import type { Recipe } from "../interface/Recipe";
 import { isRecipe } from "../interface/Recipe";
 import Pagination from "./Pagination";
@@ -13,7 +13,6 @@ interface Props {
 
 export default function Main({ recipes, page, onPageChange }: Props) {
 	const [activeRecipe, setActiveRecipe] = useState<unknown>({});
-    const modal = useRef<HTMLDivElement>(null);
 
 	const recipesPerPage = 3;
 	const start = (page - 1) * recipesPerPage;
@@ -39,8 +38,6 @@ export default function Main({ recipes, page, onPageChange }: Props) {
         [...root.children].forEach((element) => {
             element.setAttribute("inert", "");
         })
-        const modalEl = modal as unknown as Element;
-        modalEl.setAttribute("inert", "");
 	};
 
 	const closeDialogBox = () => {
@@ -120,7 +117,7 @@ export default function Main({ recipes, page, onPageChange }: Props) {
 			/>
 		</main>
         {isRecipe(activeRecipe) && (
-            <div ref={modal}>
+            <div>
                 <RecipeDetails
                     recipe={activeRecipe}
                     displayIngredients={displayIngredients}

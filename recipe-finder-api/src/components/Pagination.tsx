@@ -11,14 +11,14 @@ export default function Pagination({ page, onPrevious, onNext }: Props) {
         >
 			<button
 				onClick={onPrevious}
-				className="border border-solid border-black rounded-lg w-24 py-2"
+				className="bg-gray-100 [box-shadow:0_1px_2px_rgba(0,0,0,0.5)] focus-visible:[box-shadow:0_2px_3px_rgba(0,0,0,0.75)] focus-visible:outline-0 transition hover:bg-gray-50 focus-visible:bg-gray-50 rounded-lg w-24 py-2"
 			>
 				Previous
 			</button>
-			<p>{page}</p>
+			<p className="text-xl">{page}</p>
 			<button
 				onClick={onNext}
-				className="border border-solid border-black rounded-lg w-24 py-2"
+				className="bg-gray-100 [box-shadow:0_1px_2px_rgba(0,0,0,0.5)] focus-visible:[box-shadow:0_2px_3px_rgba(0,0,0,0.75)] focus-visible:outline-0 transition hover:bg-gray-50 focus-visible:bg-gray-50 rounded-lg w-24 py-2"
 			>
 				Next
 			</button>

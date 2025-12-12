@@ -1,5 +1,6 @@
 @import "tailwindcss";
 
 body {
-    overflow-x: hidden;
+    min-height: 100vh;
+    @apply bg-gray-200/75;
 }

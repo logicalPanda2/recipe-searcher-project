@@ -14,7 +14,7 @@ export default function RecipeDetails({
 }: Props) {
 	return (
 		<div
-            className="h-screen w-screen fixed inset-0 top-0 bg-white flex flex-col md:flex-row p-4 overflow-x-hidden"
+            className="bg-gray-100 h-screen w-screen fixed inset-0 top-0 flex flex-col md:flex-row p-4 overflow-x-hidden"
         >
             <div
                 className="flex flex-col w-1/5 pr-4 mb-4 min-w-54"
@@ -46,7 +46,7 @@ export default function RecipeDetails({
             </div>
             <button 
                 onClick={onClose}
-                className="absolute top-4 right-4 border border-solid border-black px-4 py-2 rounded-lg font-semibold"
+                className="absolute top-4 right-4 bg-gray-50 [box-shadow:0_1px_2px_rgba(0,0,0,0.5)] focus-visible:[box-shadow:0_2px_3px_rgba(0,0,0,0.75)] focus-visible:outline-0 transition px-4 py-2 rounded-lg font-semibold"
             >
                 Close
             </button>

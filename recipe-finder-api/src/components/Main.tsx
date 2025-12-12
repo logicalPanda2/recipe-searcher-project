@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import type { Recipe } from "../interface/Recipe";
 import { isRecipe } from "../interface/Recipe";
 import Pagination from "./Pagination";
@@ -13,6 +13,7 @@ interface Props {
 
 export default function Main({ recipes, page, onPageChange }: Props) {
 	const [activeRecipe, setActiveRecipe] = useState<unknown>({});
+    const modal = useRef<HTMLDivElement>(null);
 
 	const recipesPerPage = 3;
 	const start = (page - 1) * recipesPerPage;
@@ -30,11 +31,28 @@ export default function Main({ recipes, page, onPageChange }: Props) {
 	};
 
 	const openDialogBox = (recipe: unknown) => {
+        const root = document.getElementById("root");
+        if(!root) {
+            throw new Error("root not found");
+        }
 		setActiveRecipe(recipe);
+        [...root.children].forEach((element) => {
+            element.setAttribute("inert", "");
+        })
+        const modalEl = modal as unknown as Element;
+        modalEl.setAttribute("inert", "");
 	};
 
 	const closeDialogBox = () => {
-		setActiveRecipe({});
+        const root = document.getElementById("root");
+        if(!root) {
+            throw new Error("root not found");
+        }
+
+        setActiveRecipe({});
+        [...root.children].forEach((element) => {
+            element.removeAttribute("inert");
+        })
 	};
 
 	const handlePrevPage = () => {
@@ -55,6 +73,7 @@ export default function Main({ recipes, page, onPageChange }: Props) {
 			`${recipe.strIngredient8}: ${recipe.strMeasure8}`,
 			`${recipe.strIngredient9}: ${recipe.strMeasure9}`,
 			`${recipe.strIngredient10}: ${recipe.strMeasure10}`,
+            `${recipe.strIngredient11}: ${recipe.strMeasure11}`,
 			`${recipe.strIngredient12}: ${recipe.strMeasure12}`,
 			`${recipe.strIngredient13}: ${recipe.strMeasure13}`,
 			`${recipe.strIngredient14}: ${recipe.strMeasure14}`,
@@ -77,9 +96,10 @@ export default function Main({ recipes, page, onPageChange }: Props) {
 		);
 	};
 	return (
+        <>
 		<main>
             <div
-                className="flex sm:flex-row flex-col items-center justify-evenly my-4 gap-4"
+                className="flex sm:flex-row flex-col items-center justify-evenly my-4 gap-4 min-h-58"
             >
                 {visibleRecipes.length !== 0 ? (
                     visibleRecipes.map((r: Recipe) => (
@@ -90,7 +110,7 @@ export default function Main({ recipes, page, onPageChange }: Props) {
                         />
                     ))
                 ) : (
-                    <p>No results found</p>
+                    <p className="text-xl">No results found</p>
                 )}
             </div>
 			<Pagination
@@ -98,13 +118,16 @@ export default function Main({ recipes, page, onPageChange }: Props) {
 				onPrevious={handlePrevPage}
 				onNext={handleNextPage}
 			/>
-			{isRecipe(activeRecipe) && (
-				<RecipeDetails
-					recipe={activeRecipe}
-					displayIngredients={displayIngredients}
-					onClose={closeDialogBox}
-				/>
-			)}
 		</main>
+        {isRecipe(activeRecipe) && (
+            <div ref={modal}>
+                <RecipeDetails
+                    recipe={activeRecipe}
+                    displayIngredients={displayIngredients}
+                    onClose={closeDialogBox}
+                />
+            </div>
+        )}
+        </>
 	);
 }

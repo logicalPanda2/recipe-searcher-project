@@ -7,11 +7,11 @@ interface Props {
 
 export default function RecipeThumbnail({ recipe, onOpen }: Props) {
 	return (
-		<div
+		<button
 			onClick={() => {
 				onOpen(recipe);
 			}}
-            className="flex flex-col items-center border border-solid border-black rounded-lg p-4 w-2/3 min-w-40 sm:w-1/6 sm:min-w-48 gap-2"
+            className="flex flex-col items-center bg-gray-100 [box-shadow:0_1px_2px_rgba(0,0,0,0.5)] rounded-lg p-4 w-2/3 min-w-40 sm:w-1/6 sm:min-w-48 gap-2 hover:bg-gray-50/90 focus-visible:bg-gray-50/90 focus-visible:[box-shadow:0_2px_4px_rgba(0,0,0,0.75)] focus-visible:outline-0 transition"
 		>
 			<p
                 className="text-xl"
@@ -25,6 +25,6 @@ export default function RecipeThumbnail({ recipe, onOpen }: Props) {
                 height={100}
                 className="w-[90%] h-[90%] rounded-lg" 
             />
-		</div>
+		</button>
 	);
 }

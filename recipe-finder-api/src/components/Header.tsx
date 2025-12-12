@@ -25,7 +25,7 @@ export default function Header({ value, onChange }: Props) {
                     type="search"
                     name="query"
                     id="searchField"
-                    className="border border-solid border-black rounded-lg px-2 py-1 w-[90%]"
+                    className="bg-gray-100 hover:bg-gray-50/90 [box-shadow:0_1px_2px_rgba(0,0,0,0.5)] rounded-lg px-2 py-1 w-[90%] focus-visible:bg-gray-50/90 focus-visible:[box-shadow:0_2px_2px_rgba(0,0,0,0.75)] focus-visible:outline-0 transition"
                     value={value}
                     onChange={(e) => {
                         onChange(e.target.value);

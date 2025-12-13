@@ -10,11 +10,13 @@ export default function App() {
 	const [recipes, setRecipes] = useState<Recipe[]>([]);
 	const [page, setPage] = useState<number>(1);
     const [fetchError, setFetchError] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(true);
 
     async function loadRecipes(query: string) {
         const request = fetchData(query);
         request
 			.then((data) => {
+                setLoading(false);
 				if (data && typeof data === "object" && "meals" in data) {
 					if (Array.isArray(data.meals)) {
 						setRecipes(data.meals);
@@ -44,7 +46,7 @@ export default function App() {
 	return (
 		<>
 			<Header value={searchValue} onChange={setSearchValue} />
-			<Main recipes={recipes} page={page} errorMsg={fetchError} onPageChange={setPage}/>
+			<Main recipes={recipes} page={page} errorMsg={fetchError} isLoading={loading} onPageChange={setPage}/>
 			<Footer />
 		</>
 	);

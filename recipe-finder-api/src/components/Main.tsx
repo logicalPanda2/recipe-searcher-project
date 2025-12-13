@@ -8,10 +8,11 @@ import RecipeThumbnail from "./RecipeThumbnail";
 interface Props {
 	recipes: Recipe[];
 	page: number;
+    errorMsg: string;
 	onPageChange: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export default function Main({ recipes, page, onPageChange }: Props) {
+export default function Main({ recipes, errorMsg, page, onPageChange }: Props) {
 	const [activeRecipe, setActiveRecipe] = useState<unknown>({});
     const [nextBtnDisabled, setNextBtnDisabled] = useState<boolean>(false);
     const [prevBtnDisabled, setPrevBtnDisabled] = useState<boolean>(true);
@@ -106,7 +107,7 @@ export default function Main({ recipes, page, onPageChange }: Props) {
                         />
                     ))
                 ) : (
-                    <p className="text-xl">No results found</p>
+                    errorMsg && <p className="text-xl">{errorMsg}</p>
                 )}
             </div>
 			<Pagination

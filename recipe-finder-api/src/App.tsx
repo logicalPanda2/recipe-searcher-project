@@ -9,6 +9,7 @@ export default function App() {
 	const [searchValue, setSearchValue] = useState<string>("");
 	const [recipes, setRecipes] = useState<Recipe[]>([]);
 	const [page, setPage] = useState<number>(1);
+    const [fetchError, setFetchError] = useState<string>("");
 
     async function loadRecipes(query: string) {
         const request = fetchData(query);
@@ -19,12 +20,15 @@ export default function App() {
 						setRecipes(data.meals);
 					} else {
 						setRecipes([]);
-						throw new Error("no results found");
+						throw new Error("No results found");
 					}
 				}
 			})
 			.catch((e: unknown) => {
 				console.error(e);
+                if(typeof e === "object" && e !== null && "message" in e && typeof e.message === "string") {
+                    setFetchError(e.message);
+                }
 			});
     }
 
@@ -40,7 +44,7 @@ export default function App() {
 	return (
 		<>
 			<Header value={searchValue} onChange={setSearchValue} />
-			<Main recipes={recipes} page={page} onPageChange={setPage} />
+			<Main recipes={recipes} page={page} errorMsg={fetchError} onPageChange={setPage}/>
 			<Footer />
 		</>
 	);

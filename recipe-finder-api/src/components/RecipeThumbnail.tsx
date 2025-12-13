@@ -20,7 +20,7 @@ export default function RecipeThumbnail({ recipe, onOpen }: Props) {
             </p>
 			<img 
                 src={recipe.strMealThumb} 
-                alt="" 
+                alt={recipe.strMeal}
                 width={100} 
                 height={100}
                 className="w-[90%] h-[90%] rounded-lg" 

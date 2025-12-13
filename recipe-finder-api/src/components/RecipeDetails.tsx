@@ -26,7 +26,7 @@ export default function RecipeDetails({
                 </p>
                 <img 
                     src={recipe.strMealThumb} 
-                    alt="" 
+                    alt={recipe.strMeal}
                     width={100} 
                     height={100} 
                     className="rounded-lg w-50 h-50"

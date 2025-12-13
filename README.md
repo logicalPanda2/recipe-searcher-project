@@ -14,7 +14,7 @@ A simple, responsive and accessible recipe searcher.
 7. [Special Thanks](#special-thanks)
 
 ## Installation
-Copy and paste the commands below into a shell to install and set up the project:
+Copy and paste the commands below into a shell to install and set up the project (change &lt;target-directory&gt; to your actual target folder):
 ```
 cd <target-directory>
 git clone https://github.com/logicalPanda2/recipe-searcher-project.git

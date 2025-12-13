@@ -10,28 +10,12 @@ export default function App() {
 	const [recipes, setRecipes] = useState<Recipe[]>([]);
 	const [page, setPage] = useState<number>(1);
 
-	useEffect(() => {
-		const request = fetchData("");
-		request
+    async function loadRecipes(query: string) {
+        const request = fetchData(query);
+        request
 			.then((data) => {
 				if (data && typeof data === "object" && "meals" in data) {
 					if (Array.isArray(data.meals)) {
-						setRecipes(data.meals);
-					}
-				}
-			})
-			.catch((e: unknown) => {
-				console.error(e);
-			});
-	}, []);
-
-	useEffect(() => {
-		const request = fetchData(searchValue);
-		request
-			.then((data) => {
-				if (data && typeof data === "object" && "meals" in data) {
-					if (Array.isArray(data.meals)) {
-						setPage(1);
 						setRecipes(data.meals);
 					} else {
 						setRecipes([]);
@@ -39,9 +23,18 @@ export default function App() {
 					}
 				}
 			})
-			.catch((error: unknown) => {
-				console.error(error);
+			.catch((e: unknown) => {
+				console.error(e);
 			});
+    }
+
+	useEffect(() => {
+		loadRecipes("");
+	}, []);
+
+	useEffect(() => {
+		loadRecipes(searchValue);
+        setPage(1);
 	}, [searchValue]);
 
 	return (

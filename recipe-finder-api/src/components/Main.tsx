@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { Recipe } from "../interface/Recipe";
 import { isRecipe } from "../interface/Recipe";
 import Pagination from "./Pagination";
@@ -13,20 +13,36 @@ interface Props {
 
 export default function Main({ recipes, page, onPageChange }: Props) {
 	const [activeRecipe, setActiveRecipe] = useState<unknown>({});
+    const [nextBtnDisabled, setNextBtnDisabled] = useState<boolean>(false);
+    const [prevBtnDisabled, setPrevBtnDisabled] = useState<boolean>(true);
 
 	const recipesPerPage = 3;
 	const start = (page - 1) * recipesPerPage;
 	const end = start + recipesPerPage;
 	const visibleRecipes: Recipe[] = recipes.slice(start, end);
-
-	const handleNextPage = () => {
-		const nextVisibleRecipes = recipes.slice(
+    const nextVisibleRecipes = recipes.slice(
 			start + recipesPerPage,
 			end + recipesPerPage,
 		);
-		if (nextVisibleRecipes.length !== 0) {
-			onPageChange((p) => p + 1);
-		}
+
+    useEffect(() => {
+        if(nextVisibleRecipes.length === 0) {
+            setNextBtnDisabled(true);
+        } else {
+            setNextBtnDisabled(false);
+        }
+
+        if(page === 1) {
+            setPrevBtnDisabled(true);
+        } else {
+            setPrevBtnDisabled(false);
+        }
+    }, [recipes, page]);
+
+	const handleNextPage = () => {
+		if(!nextBtnDisabled) {
+            onPageChange(p => p + 1);
+        }
 	};
 
 	const openDialogBox = (recipe: unknown) => {
@@ -95,6 +111,8 @@ export default function Main({ recipes, page, onPageChange }: Props) {
             </div>
 			<Pagination
 				page={page}
+                nextDisabled={nextBtnDisabled}
+                prevDisabled={prevBtnDisabled}
 				onPrevious={handlePrevPage}
 				onNext={handleNextPage}
 			/>

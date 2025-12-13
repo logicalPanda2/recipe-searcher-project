@@ -28,6 +28,7 @@ export default function App() {
 			})
 			.catch((e: unknown) => {
 				console.error(e);
+                setLoading(false);
                 if(typeof e === "object" && e !== null && "message" in e && typeof e.message === "string") {
                     setFetchError(e.message);
                 }

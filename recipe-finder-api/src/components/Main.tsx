@@ -9,10 +9,11 @@ interface Props {
 	recipes: Recipe[];
 	page: number;
     errorMsg: string;
+    isLoading: boolean;
 	onPageChange: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export default function Main({ recipes, errorMsg, page, onPageChange }: Props) {
+export default function Main({ recipes, page, errorMsg, isLoading, onPageChange }: Props) {
 	const [activeRecipe, setActiveRecipe] = useState<unknown>({});
     const [nextBtnDisabled, setNextBtnDisabled] = useState<boolean>(false);
     const [prevBtnDisabled, setPrevBtnDisabled] = useState<boolean>(true);
@@ -98,6 +99,7 @@ export default function Main({ recipes, errorMsg, page, onPageChange }: Props) {
             <div
                 className="flex sm:flex-row flex-col items-center justify-evenly my-4 gap-4 min-h-58"
             >
+                {isLoading && <div className="loader"></div>}
                 {visibleRecipes.length !== 0 ? (
                     visibleRecipes.map((r: Recipe) => (
                         <RecipeThumbnail

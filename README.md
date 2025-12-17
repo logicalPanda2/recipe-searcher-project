@@ -1,5 +1,5 @@
 # Recipe Searcher
-<img src="assets/home-page.png" alt="home page" width="640" height="280">
+<img src="assets/homepage.png" alt="home page" width="640" height="280">
 <img src="assets/modal-page.png" alt="transaction page" width="640" height="280">
 
 A simple, responsive and accessible recipe searcher.

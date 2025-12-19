@@ -4,9 +4,11 @@ import type { Recipe } from "./interface/Recipe";
 import Header from "./components/Header";
 import Main from "./components/Main";
 import Footer from "./components/Footer";
+import useDebounce from "./hooks/useDebounce";
 
 export default function App() {
 	const [searchValue, setSearchValue] = useState<string>("");
+    const debouncedValue = useDebounce<string>(searchValue);
 	const [recipes, setRecipes] = useState<Recipe[]>([]);
 	const [page, setPage] = useState<number>(1);
     const [fetchError, setFetchError] = useState<string>("");
@@ -40,9 +42,9 @@ export default function App() {
 	}, []);
 
 	useEffect(() => {
-		loadRecipes(searchValue);
+		loadRecipes(debouncedValue);
         setPage(1);
-	}, [searchValue]);
+	}, [debouncedValue]);
 
 	return (
 		<>

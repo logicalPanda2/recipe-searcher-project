@@ -14,8 +14,6 @@ export default function App() {
 
     async function loadRecipes(query: string): Promise<Recipe[]> {
         const data = await fetchData(query);
-
-        console.log(data);
     
         if(!data || !(typeof data === "object") || !("meals" in data)) throw new Error("Invalid response");
         if(!Array.isArray(data.meals)) throw new Error("No results found");

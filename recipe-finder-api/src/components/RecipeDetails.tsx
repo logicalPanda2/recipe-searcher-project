@@ -42,7 +42,7 @@ export default function RecipeDetails({
                 className="flex flex-col w-3/4 md:w-3/5 md:px-4"
             >
                 <p className="text-2xl font-semibold">Instructions</p>
-                <p>{recipe.strInstructions}</p>
+                <p className="whitespace-pre-line pb-12">{recipe.strInstructions}</p>
             </div>
             <button 
                 onClick={onClose}
